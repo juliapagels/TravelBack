@@ -499,16 +499,22 @@ public class TravelBack extends Application {
                 "<div id=\"mapid\" style=\"width: 800px; height: 500px;\"></div>" + System.lineSeparator() +
                 "<script src=\"sample-geojson.js\" type=\"text/javascript\"></script>" + System.lineSeparator() +
                 "<script>" + System.lineSeparator() +
-                System.lineSeparator() +
-                "var mymap = L.map('mapid').setView([" + mediaList.getFirst().latitude + ", " + mediaList.getFirst().longitude + "], 7);" + System.lineSeparator() +
-                System.lineSeparator() +
-                "L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {" + System.lineSeparator() +
-                "maxZoom: 18," + System.lineSeparator() +
-                "attribution: 'Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, ' +" + System.lineSeparator() +
-                "'<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, ' +" + System.lineSeparator() +
+                "var attri = 'Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, '" + System.lineSeparator() +
+                "'<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, '" + System.lineSeparator() +
                 "'Imagery © <a href=\"http://mapbox.com\">Mapbox</a>'," + System.lineSeparator() +
-                "id: 'mapbox.streets'" + System.lineSeparator() +
-                "}).addTo(mymap);" + System.lineSeparator() +
+                "Url = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';" + System.lineSeparator() +
+                "var mapbox = L.tileLayer(Url, {id: 'mapbox.streets', attribution: attri})" +System.lineSeparator() +
+                "satellite = L.tileLayer(Url, {id: 'mapbox.satellite', attribution: attri});" +System.lineSeparator() +
+                "var mymap = L.map('mapid',{" + System.lineSeparator() +
+                "center:[" + mediaList.getFirst().latitude + ", " + mediaList.getFirst().longitude + "]," + System.lineSeparator() +
+                "zoom: 5," + System.lineSeparator() +
+                "layers: [mapbox, satellite]});" + System.lineSeparator() +
+                System.lineSeparator() +
+                "var baseLayers = {" + System.lineSeparator() +
+                "\"Satellite\": satellite," + System.lineSeparator() +
+                "\"Streets\": mapbox," + System.lineSeparator() +
+                "};" + System.lineSeparator() +
+                "L.control.layers(baseLayers).addTo(mymap);"+ System.lineSeparator() +
                 System.lineSeparator() +
                 "var customOptions = {'maxWidth': '400', 'width': '200',}" + System.lineSeparator() +
                 System.lineSeparator() +
